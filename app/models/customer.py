@@ -1,10 +1,3 @@
-"""
-customer.py - Customer Database Model
-
-Defines the customers table in the database.
-Each customer has a unique email address.
-"""
-
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
@@ -12,16 +5,6 @@ from app.database import Base
 
 
 class Customer(Base):
-    """
-    Customer model representing the 'customers' table.
-    
-    Columns:
-        id: Primary key, auto-incremented
-        name: Customer's full name
-        email: Must be unique
-        phone: Contact phone number
-        created_at: When the customer was registered
-    """
     __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -30,5 +13,4 @@ class Customer(Base):
     phone = Column(String(20), nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    # Relationship: One customer can have many orders
     orders = relationship("Order", back_populates="customer")
